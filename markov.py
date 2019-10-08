@@ -75,8 +75,14 @@ def make_text(chains):
     words = []
 
     # your code goes here
-    #take key from dictionary
-    new_key = ("Would", "you")
+    #Get original text string using open_and_read_file function
+    original_text_string = open_and_read_file(input_path)
+    text_list = original_text_string.split()
+
+    #get first and second words from text string, assign as new_key tuple values
+    new_key = (text_list[0], text_list[1])
+    print(new_key)
+
     words.append(new_key[0])
     words.append(new_key[1])
     
@@ -93,7 +99,7 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
