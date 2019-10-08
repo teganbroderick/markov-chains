@@ -65,7 +65,7 @@ def make_chains(text_string):
             chains[temp_tuple].append(temp_value)
 
     # for key, value in chains.items():
-    #     print(f"{key}, {value}")
+    #      print(f"{key}, {value}")
 
     return chains
 
@@ -75,10 +75,20 @@ def make_text(chains):
     words = []
 
     # your code goes here
-    for key, value in chains.items():
+    #take key from dictionary
+    new_key = ("Would", "you")
+    words.append(new_key[0])
+    words.append(new_key[1])
+    
+    #choice of values for our_tuple
+    while new_key in chains:
         
-        words.append(choice(value))
-        print(words)
+        chosen_word = choice(chains[new_key])
+        #print("chosen word:", chosen_word)
+        words.append(chosen_word)
+
+        new_key = (new_key[1], chosen_word)
+        #print("new key: ", new_key)
 
     return " ".join(words)
 
