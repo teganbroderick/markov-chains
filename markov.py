@@ -53,10 +53,9 @@ def make_chains(text_string):
         temp_tuple = (text_list[i], text_list[i + 1])
         temp_value = text_list[i + 2]
        
-        
         #if key not in dictionary:
         if temp_tuple not in chains:
-            #create a list: idea: 
+            #create a list
             chains[temp_tuple] = []
             #add value to list
             chains[temp_tuple].append(temp_value)
@@ -65,22 +64,10 @@ def make_chains(text_string):
             #append value to existing list
             chains[temp_tuple].append(temp_value)
 
+    # for key, value in chains.items():
+    #     print(f"{key}, {value}")
 
-    for key, value in chains.items():
-        print(f"{key}, {value}")
-    #print(chains)
-
-    # use tuples to go back into list and identify next word after (values)
-    #loop through the keys in the chains dict
-        #for each chain, find key tuple in text_list
-        #find word immediately after tuple
-        #put that word in a value list
-        #asociate value list with key
-
-    #   put them into a value list
-    # put everything into chains dict
     return chains
-
 
 def make_text(chains):
     """Return text from chains."""
@@ -88,6 +75,10 @@ def make_text(chains):
     words = []
 
     # your code goes here
+    for key, value in chains.items():
+        
+        words.append(choice(value))
+        print(words)
 
     return " ".join(words)
 
