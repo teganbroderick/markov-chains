@@ -10,59 +10,28 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    # your code goes here
     file = open(file_path)
     file_string = file.read()
-    #print(file_string)
-    
+
     return file_string
 
 def make_chains(text_string):
-    """Take input text as string; return dictionary of Markov chains.
-
-    A chain will be a key that consists of a tuple of (word1, word2)
-    and the value would be a list of the word(s) that follow those two
-    words in the input text.
-
-    For example:
-
-        >>> chains = make_chains("hi there mary hi there juanita")
-
-    Each bigram (except the last) will be a key in chains:
-
-        >>> sorted(chains.keys())
-        [('hi', 'there'), ('mary', 'hi'), ('there', 'mary')]
-
-    Each item in chains is a list of all possible following words:
-
-        >>> chains[('hi', 'there')]
-        ['mary', 'juanita']
-        
-        >>> chains[('there','juanita')]
-        [None]
-    """
+    """Take input text as string; return dictionary of Markov chains"""
 
     chains = {}
 
-    # your code goes here
     text_list = text_string.split()
 
-    # loop over list
     for i in range(len(text_list) - 2):
-    # create keys based on index (0,1), (1,2) save them as tuples somehow
         temp_tuple = (text_list[i], text_list[i + 1])
         temp_value = text_list[i + 2]
-       
-        #if key not in dictionary:
-        if temp_tuple not in chains:
-            #create a list
-            chains[temp_tuple] = []
-            #add value to list
-            chains[temp_tuple].append(temp_value)
+
+        if temp_tuple not in chains: #if key not in dictionary
+            chains[temp_tuple] = [] #make empty list
+            chains[temp_tuple].append(temp_value) #append value to list
             
         else:
-            #append value to existing list
-            chains[temp_tuple].append(temp_value)
+            chains[temp_tuple].append(temp_value) #append value to existing list
 
     # for key, value in chains.items():
     #      print(f"{key}, {value}")
@@ -74,35 +43,28 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
     #Get original text string using open_and_read_file function
     original_text_string = open_and_read_file(input_path)
     text_list = original_text_string.split()
-
-    #get first and second words from text string, assign as new_key tuple values
-    new_key = (text_list[0], text_list[1])
-    #print(new_key)
-
-    words.append(new_key[0])
-    words.append(new_key[1])
     
-    #choice of values for our_tuple
-    while new_key in chains:
+    #assign first two words as key
+    new_key = (text_list[0], text_list[1])
+    
+    #append first two words to words list
+    words.append(text_list[0])
+    words.append(text_list[1])
 
+    while new_key in chains:
         chosen_word = choice(chains[new_key])
-        #print("chosen word:", chosen_word)
         words.append(chosen_word)
         
-        #End loop when last character in chosen_word is . or ?
-        #Best for longer text files
+        #Extra feature: end loop when last character in chosen_word is . or ?
         # if chosen_word[-1] == "." or chosen_word[-1] == "?":
         #     break
 
         new_key = (new_key[1], chosen_word)
-        #print("new key: ", new_key)
 
     return " ".join(words)
-
 
 input_path = "green-eggs.txt"
 
