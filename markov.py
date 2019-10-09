@@ -81,17 +81,22 @@ def make_text(chains):
 
     #get first and second words from text string, assign as new_key tuple values
     new_key = (text_list[0], text_list[1])
-    print(new_key)
+    #print(new_key)
 
     words.append(new_key[0])
     words.append(new_key[1])
     
     #choice of values for our_tuple
     while new_key in chains:
-        
+
         chosen_word = choice(chains[new_key])
         #print("chosen word:", chosen_word)
         words.append(chosen_word)
+        
+        #End loop when last character in chosen_word is . or ?
+        #Best for longer text files
+        # if chosen_word[-1] == "." or chosen_word[-1] == "?":
+        #     break
 
         new_key = (new_key[1], chosen_word)
         #print("new key: ", new_key)
@@ -99,7 +104,7 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "gettysburg.txt"
+input_path = "green-eggs.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
